@@ -1,17 +1,4 @@
-function getAge(dateString) {
-  var today = new Date();
-  var birthDate = new Date(dateString);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age;
-}
 $(document).on("ready", function() {
-  let age = getAge("1995.3.7");
-  $("#ege").text(age);
-
   /**** FILTER PORTFOLIO ****/
   $(".section-portfolio .filter-portfolio li").on("click", function() {
     //change active li filter
