@@ -18,27 +18,11 @@ function submitForm() {
   var name = $("#name").val();
   var email = $("#email").val();
   var message = $("#message").val();
-  var data = {
-    email: {
-      text: message,
-      subject: "Новое письмо",
-      from: {
-        name: name,
-        email: email
-      },
-      to: [
-        {
-          name: "Maxim Severyanov",
-          email: "zandreks@gmail.com"
-        }
-      ]
-    }
-  };
 
   $.ajax({
     type: "POST",
-    url: "https://api.sendpulse.com/smtp/emails",
-    data: JSON.stringify(data),
+    url: "php/form-process.php",
+    data: "name=" + name + "&email=" + email + "&message=" + message,
     success: function(text) {
       if (text == "success") {
         formSuccess();
@@ -52,7 +36,7 @@ function submitForm() {
 
 function formSuccess() {
   $("#contactForm")[0].reset();
-  submitMSG(true, "");
+  submitMSG(true, "Сообщение отправлено!");
 }
 
 function formError() {
