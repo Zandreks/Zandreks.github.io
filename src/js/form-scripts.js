@@ -21,7 +21,7 @@ function submitForm() {
 
   $.ajax({
     type: "POST",
-    url: "php/form-process.php",
+    url: "https://emailsubadd.inva.kz/form-process.php",
     data: "name=" + name + "&email=" + email + "&message=" + message,
     success: function(text) {
       if (text == "success") {
