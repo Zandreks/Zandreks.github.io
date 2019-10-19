@@ -9,7 +9,8 @@ var gulp       = require('gulp'), // Подключаем Gulp
 	imagemin     = require('gulp-imagemin'), // Подключаем библиотеку для работы с изображениями
 	pngquant     = require('imagemin-pngquant'), // Подключаем библиотеку для работы с png
 	cache        = require('gulp-cache'), // Подключаем библиотеку кеширования
-	autoprefixer = require('gulp-autoprefixer');// Подключаем библиотеку для автоматического добавления префиксов
+	autoprefixer = require('gulp-autoprefixer'),// Подключаем библиотеку для автоматического добавления префиксов
+	htmlmin = require('gulp-htmlmin');
 
 gulp.task('sass', function(){ // Создаем таск Sass
 	return gulp.src('app/sass/**/*.sass') // Берем источник
@@ -27,6 +28,12 @@ gulp.task('browser-sync', function() { // Создаем таск browser-sync
 		notify: false // Отключаем уведомления
 	});
 });
+
+gulp.task('html', () => {
+	return gulp.src('*.html')
+	  .pipe(htmlmin({ collapseWhitespace: true }))
+	  .pipe(gulp.dest('app'));
+  });
 
 gulp.task('scripts', function() {
 	return gulp.src("js/**/*.js")
@@ -64,7 +71,7 @@ gulp.task('img', function() {
 		.pipe(gulp.dest('app/images')); // Выгружаем на продакшен
 });
 
-gulp.task('build', ['clean', 'img', 'css-libs', 'scripts'], function() {
+gulp.task('build', ['clean', 'img',"html", 'css-libs', 'scripts'], function() {
 
 	var buildCss = gulp.src("app/css/**/*.css")
 	.pipe(gulp.dest('../css'))
@@ -84,7 +91,7 @@ gulp.task('build', ['clean', 'img', 'css-libs', 'scripts'], function() {
 	var buildlibs = gulp.src('libs/**/*') // Переносим скрипты в продакшен
 	.pipe(gulp.dest('../js'))
 
-	var buildHtml = gulp.src('*.html') // Переносим HTML в продакшен
+	var buildHtml = gulp.src('app/*.html') // Переносим HTML в продакшен
 	.pipe(gulp.dest('../'));
 
 });
