@@ -21,10 +21,18 @@ function submitForm() {
 
   $.ajax({
     type: "POST",
-    url: "https://emailsubadd.inva.kz/form-process.php",
+    url: "http://test.too-asse.kz/mail.php",
     data: "name=" + name + "&email=" + email + "&message=" + message,
     success: function(text) {
       if (text == "success") {
+        formSuccess();
+      } else {
+        formError();
+        submitMSG(false, text);
+      }
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      if (xhr.status === 0) {
         formSuccess();
       } else {
         formError();
