@@ -21,7 +21,7 @@ function submitForm() {
 
   $.ajax({
     type: "POST",
-    url: "http://test.too-asse.kz/mail.php",
+    url: "https://test.too-asse.kz/mail.php",
     data: "name=" + name + "&email=" + email + "&message=" + message,
     success: function(text) {
       if (text == "success") {
